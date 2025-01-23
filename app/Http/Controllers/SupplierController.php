@@ -58,7 +58,6 @@ class SupplierController extends Controller
             ->with('success', 'Supplier updated successfully.');
     }
 
-
     public function destroy(Request $request, $id)
     {
 

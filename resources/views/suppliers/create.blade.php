@@ -20,15 +20,24 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{trans('main_trans.suppliers')}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{trans('main_trans.Add Supplier')}}
-                    </span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('main_trans.suppliers') }}</h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('main_trans.Add Supplier') }}
+                </span>
             </div>
         </div>
     </div>
     <!-- breadcrumb -->
 @endsection
 @section('content')
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @if (session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Add') }}</strong>
@@ -44,16 +53,18 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('suppliers.store')}}" method="post" enctype="multipart/form-data"
+                    <form action="{{ route('suppliers.store') }}" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Name')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="name"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Name') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="name" required>
+                                @error('name')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -61,9 +72,8 @@
                         {{-- 2 --}}
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Adress')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="address"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Adress') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="address" required>
                             </div>
 
                         </div>
@@ -73,9 +83,11 @@
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Email')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="email"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Email') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="email" required>
+                                @error('email')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -84,45 +96,45 @@
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Phone')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="phone"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Phone') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="phone" required>
                             </div>
 
                         </div>
-                           {{-- 5 --}}
-                           <div class="row">
+                        {{-- 5 --}}
+                        <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Title')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="title"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Title') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="title" required>
                             </div>
 
                         </div>
-                           {{-- 6--}}
-                           <div class="row">
+                        {{-- 6 --}}
+                        <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Website')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="website"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Website') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="website" required>
+                                @error('website')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
-                           {{-- 7 --}}
-                           <div class="row">
+                        {{-- 7 --}}
+                        <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Registration Number')}} </label>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Registration Number') }}
+                                </label>
                                 <input type="text" class="form-control" id="inputName" name="registration_number"
-                                     required>
+                                    required>
                             </div>
 
                         </div>
-                           {{-- 8 --}}
-                           <div class="row">
+                        {{-- 8 --}}
+                        <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">{{trans('main_trans.Vat Number')}} </label>
-                                <input type="text" class="form-control" id="inputName" name="vat_number"
-                                     required>
+                                <label for="inputName" class="control-label">{{ trans('main_trans.Vat Number') }} </label>
+                                <input type="text" class="form-control" id="inputName" name="vat_number" required>
                             </div>
 
                         </div>
