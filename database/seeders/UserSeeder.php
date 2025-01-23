@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'Maryammmsobheradwan@gmail.com',
             'password' => Hash::make('12345678'),
             'roles_name' =>['Superadmin'],
-            'Status' => 'مفعل',
+            // 'Status' => 'مفعل',
             ]);
             $user->assignRole('superadmin');
 

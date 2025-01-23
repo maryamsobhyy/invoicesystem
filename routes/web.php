@@ -2,27 +2,28 @@
 
 
 
+use App\Models\User;
+use App\Models\invoices;
 use App\Models\products;
+use App\Notifications\invoice;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\homecontroller;
 use App\Http\Controllers\Rolecontroller;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\customers_reportcontroller;
-use App\Http\Controllers\homecontroller;
-use App\Http\Controllers\invoices_reportcontroller;
+use App\Http\Middleware\CustomMiddleware;
 use App\Http\Controllers\messagecontroller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\invoices_reportcontroller;
 use App\Http\Controllers\InvoicesDetailsController;
+use App\Http\Controllers\customers_reportcontroller;
 use App\Http\Controllers\InvoicesAttachmentsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Middleware\CustomMiddleware;
-use App\Models\invoices;
-use App\Models\User;
-use App\Notifications\invoice;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,13 @@ Route::get('/sendmessage', [messagecontroller::class,'index'])->name('sendmessag
 Route::post('/storeRole', [Rolecontroller::class,'store'])->name('roles.store');
 Route::get('/roles.show/{id}', [Rolecontroller::class,'show'])->name('roles.show');
 Route::get('/roles.edit/{id}', [Rolecontroller::class,'edit'])->name('roles.edit');
+//Suppliers
+Route::get('suppliers', [SupplierController::class,'index'])->name('suppliers.index');
+Route::get('suppliers/create', [SupplierController::class,'create'])->name('suppliers.create');
+Route::post('suppliers/store', [SupplierController::class,'store'])->name('suppliers.store');
+Route::get('suppliers/edit/{id}', [SupplierController::class, 'edit'])->name('suppliers.edit');
+Route::post('suppliers/update/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
+Route::delete('suppliers/delete/{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 //reports
 Route::get('/invoices_report', [invoices_reportcontroller::class,'index'])->name('invoices_report');
 Route::post('/search_report', [invoices_reportcontroller::class,'show'])->name('invoices_search');
@@ -109,34 +117,10 @@ Route::post('/search_customerreport', [customers_reportcontroller::class,'show']
 Route::post('/roles.update/{id}', [Rolecontroller::class,'update'])->name('roles.update');
 Route::delete('/roles.destroy/{id}', [Rolecontroller::class,'destroy'])->name('roles.destroy');
 Route::post('/messagestore', [messagecontroller::class,'store'])->name('messagestore');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/invoicesdetails/{id}',[InvoicesDetailsController::class,'index'])->name('invoice.details');
 Route::get('/viewfile/{invoice_number}/{file_name}',[InvoicesDetailsController::class,'viewfile'])->name('viewfile');
-
 Route::get('/filename/{id}',[InvoicesDetailsController::class,'file'])->name('invoice.file');
 Route::get('/section/{id}', [InvoicesController::class,'getproducts']);
-
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

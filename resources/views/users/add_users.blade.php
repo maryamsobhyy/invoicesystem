@@ -99,7 +99,6 @@ Add user
                             </select>
                         </div>
                     </div>
-
                     <div class="row mg-b-20">
                         <div class="form-group">
                             <label class="form-label">{{trans('main_trans.Type Of User')}}</label>
